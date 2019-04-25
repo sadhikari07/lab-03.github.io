@@ -24,14 +24,22 @@
           <li><a id="page2" href="#">Page 2</a></li>
         </ul>
       </nav>
-        <select>
+      <div>
+        <select id="keyword-select">
             <option value="default">Filter by Keyword</option>
         </select>
-
+      </div>
+      <div>
+        <select id="sort-select">
+            <option value="sort-default">Sort</option>
+            <option value="title-sort">Sort by title</option>
+            <option value="horns-sort">Sort by horns</option>
+        </select>
+      </div>
        <section id="img-container"></section>
         <script type="text/x-handlebars-template" id="image-template">
           <div id="photo-template">
-              <!-- <h2>{{title}}</h2> -->
+              <h2>{{title}}</h2>
               <img src={{image_url}} class={{keyword}} alt={{title}} >
           </div>
         </script>
