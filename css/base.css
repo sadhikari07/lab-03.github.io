@@ -1,0 +1,33 @@
+@import 'reset.css';
+
+body{
+width: 960px;
+margin: 0 auto;
+background: blanchedalmond;
+}
+
+img{
+  width: 200px;
+  height: 200px;
+  border: 5px solid lightblue;
+  margin: 15px;
+}
+
+h1{
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size: 40px;
+  color: white;
+}
+
+
+section{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 30px auto;
+  overflow: auto; 
+}
+
+img:hover {
+  opacity: .5;
+}

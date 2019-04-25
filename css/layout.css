@@ -1,0 +1,20 @@
+
+header{
+  background-color: blue;
+  text-align: center;
+  margin: 30px auto;
+}
+
+footer{
+  clear: both;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color:blue;
+  color: white;
+  text-align: center;
+  height: 40px;
+  margin-top: 50px;
+  line-height: 40px;
+}
