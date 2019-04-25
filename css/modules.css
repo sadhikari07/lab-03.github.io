@@ -1,4 +1,11 @@
-select{
-  display: block;
-  margin: 0 auto;
+#select-keyword{
+  display: inline-block;
+  margin: 30px auto;
+  margin-top:10px;
+}
+
+#sort-keyword{
+  display: inline-block;
+  margin: 30px auto;
+  margin-top:10px;
 }

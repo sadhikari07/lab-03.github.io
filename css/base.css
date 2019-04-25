@@ -31,3 +31,15 @@ section{
 img:hover {
   opacity: .5;
 }
+
+h2{
+  text-align: center;
+  font-size: 120%;
+  width: 200px;
+  overflow: auto;
+}
+
+li{
+  display: inline-block;
+  margin-right: 10px;
+}

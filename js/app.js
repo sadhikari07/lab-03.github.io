@@ -22,6 +22,7 @@ function displayHandle(imageArray){
   
   let sectionTag = $('#img-container');
   $('img').remove();
+  $('h2').remove();
   for (let i=0; i<imageArray.length; i++){
     sectionTag.append(imgRenderer(imageArray[i]));
   }
@@ -40,29 +41,18 @@ function createImageObject(file, imageArray){
       displayHandle(imageArray);
       fillSelect(imageArray);
       filterImages(imageArray);
-    
+      addSortListener(imageArray);
 
   // console.log(Image.allImages);
   });
 }
 
-//Display images to home page
-function displayImages(imageArray){
-  //get the image element
-  let imageTag = $('h2');
-  $('img').remove();
-  for(let i = 0; i < imageArray.length; i++){
-    imageTag.after(`<img src=${imageArray[i].image_url} alt=${imageArray[i].title}, class: ${imageArray[i].keyword}} />`);
-
-  }
-
-}
 
 //Fill in select options
 function fillSelect(imageArray){
   let options = ['default'];
 
-  let selectTag = $('select');
+  let selectTag = $('#keyword-select');
   // let optionItems = getKeyWords();
   selectTag.empty();
  
@@ -82,11 +72,12 @@ function fillSelect(imageArray){
 //Function to filter images
 function filterImages(imageArray){
   let sectionTag = $('#img-container');
-  $('select').change(function(){
+  $('#keyword-select').change(function(){
     // get value for selected keyword
     let selectedKey = $(this).children('option:selected').val();
     if(selectedKey !== 'default'){
       $('img').remove();
+      $('h2').remove();
       // display all images based from the keyword
       for(let i = 0; i < imageArray.length; i++){
         if(imageArray[i].keyword === selectedKey){
@@ -110,11 +101,40 @@ function addListener(){
   $('#page2').on('click', function(){
     createImageObject('page-2.json', Image.allImages2);
   });
-  //Add listener on that element
-  
 
 }
 
+
+function addSortListener(imageArray){
+  //Grab the list element
+  $('#sort-select').change(function(){
+    // get value for selected keyword
+    let selectedKey = $(this).children('option:selected').val();
+    if(selectedKey === 'title-sort'){
+      $('img').remove();
+      imageArray.sort((a,b) => compare(a.title, b.title));
+      displayHandle(imageArray);
+    } 
+    if (selectedKey === 'horns-sort'){
+      imageArray.sort((a,b) => a.horns - b.horns);
+      displayHandle(imageArray);
+      // return imageArray;
+    }
+    displayHandle(imageArray);
+  });
+
+}
+
+function compare(a,b){
+  if(a < b){
+    return -1;
+  }
+
+  if(a > b){
+    return 1;
+  }
+  return 0;
+}
 // FUNCTION CALLS
 createImageObject('page-1.json', Image.allImages1);
 // createImageObject('page-2.json');
