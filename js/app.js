@@ -24,8 +24,8 @@ function createImageObject(file, imageArray){
           imageArray.push(new Image(picElement));
         }
       displayImages(imageArray);
-      // fillSelect();
-      // filterImages();
+      fillSelect(imageArray);
+      filterImages(imageArray);
     });
 
   // console.log(Image.allImages);
@@ -45,39 +45,42 @@ function displayImages(imageArray){
 }
 
 //Fill in select options
-function fillSelect(){
-  let options = [];
+function fillSelect(imageArray){
+  let options = ['default'];
+
   let selectTag = $('select');
   // let optionItems = getKeyWords();
-  for(let i = 0; i < Image.allImages.length; i++){
-    if(!options.includes(Image.allImages[i].keyword)){
+  selectTag.empty();
+ 
+  selectTag.append(`<option value="default">Filter by Keyword</option>`);
+  for(let i = 1; i < imageArray.length; i++){
+    if(!options.includes(imageArray[i].keyword)){
       //Add option tag
-      selectTag.append(`<option value=${Image.allImages[i].keyword}>${Image.allImages[i].keyword}</option>`);
+      selectTag.append(`<option value=${imageArray[i].keyword}>${imageArray[i].keyword}</option>`);
 
       //Add to list of options array
-      options.push(Image.allImages[i].keyword);
+      options.push(imageArray[i].keyword);
     }
   }
 
 }
 
 //Function to filter images
-function filterImages(){
+function filterImages(imageArray){
   $('select').change(function(){
     // get value for selected keyword
     let selectedKey = $(this).children('option:selected').val();
-    //remove all images
     if(selectedKey !== 'default'){
       $('img').remove();
       // display all images based from the keyword
-      for(let i = 0; i < Image.allImages.length; i++){
-        if(Image.allImages[i].keyword === selectedKey){
-          $('h2').after(`<img src=${Image.allImages[i].image_url} alt=${Image.allImages[i].title}, class: ${Image.allImages[i].keyword}} />`);
+      for(let i = 0; i < imageArray.length; i++){
+        if(imageArray[i].keyword === selectedKey){
+          $('h2').after(`<img src=${imageArray[i].image_url} alt=${imageArray[i].title}, class: ${imageArray[i].keyword}} />`);
      
         }
       }
     } else{
-      displayImages();
+      displayImages(imageArray);
     }
   });
 }
