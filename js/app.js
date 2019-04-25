@@ -10,33 +10,35 @@ function Image(pic){
 
 }
 
-Image.allImages = [];
+Image.allImages1 = [];
+Image.allImages2 = [];
 
 // FUNCTION DECLARATIONS
 
 //Create image objects from JSON data
-function createImageObject(){
-  $.get('./data/page-1.json')
+function createImageObject(file, imageArray){
+  $.get(`./data/${file}`)
     .then(data => {
-      data.forEach(picElement => Image.allImages.push(new Image(picElement)));
-      displayImages();
-      fillSelect();
-      filterImages();
+      data.forEach(picElement => {
+        if (imageArray.length<20){
+          imageArray.push(new Image(picElement));
+        }
+      displayImages(imageArray);
+      // fillSelect();
+      // filterImages();
     });
 
   // console.log(Image.allImages);
+});
 }
 
 //Display images to home page
-function displayImages(){
+function displayImages(imageArray){
   //get the image element
   let imageTag = $('h2');
-  // //assign the first image object to the first image tag
-  // imageTag.attr({'src': Image.allImages[0].image_url, 'alt': Image.allImages[0].title, 'class': Image.allImages[0].keyword});
-  // // iterate through the images list  and create image tags
   $('img').remove();
-  for(let i = 0; i < Image.allImages.length; i++){
-    imageTag.after(`<img src=${Image.allImages[i].image_url} alt=${Image.allImages[i].title}, class: ${Image.allImages[i].keyword}} />`);
+  for(let i = 0; i < imageArray.length; i++){
+    imageTag.after(`<img src=${imageArray[i].image_url} alt=${imageArray[i].title}, class: ${imageArray[i].keyword}} />`);
 
   }
 
@@ -80,11 +82,24 @@ function filterImages(){
   });
 }
 
+//Function to add listener to our navigation link
 
+function addListener(){
+  //Grab the list element
+  $('#page1').on('click', function(){
+    createImageObject('page-1.json', Image.allImages1);
+  });
+  $('#page2').on('click', function(){
+    createImageObject('page-2.json', Image.allImages2);
+  });
+  //Add listener on that element
+  
+
+}
 
 // FUNCTION CALLS
-createImageObject();
-
-
+createImageObject('page-1.json', Image.allImages1);
+// createImageObject('page-2.json');
+addListener();
 
 
