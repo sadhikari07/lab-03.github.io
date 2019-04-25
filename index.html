@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="css/layout.css">
     <link rel="stylesheet" href="css/modules.css">
     <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.2/handlebars.min.js"></script>
   </head>
   <body>
     <header>
@@ -25,12 +26,18 @@
       </nav>
         <select>
             <option value="default">Filter by Keyword</option>
-          </select>
-      <section id="photo-template">
-        <h2></h2>
-        <img src="" alt="">
-        <p></p>
-      </section>
+        </select>
+
+       <section id="img-container"></section>
+        <script type="text/x-handlebars-template" id="image-template">
+          <div id="photo-template">
+              <!-- <h2>{{title}}</h2> -->
+              <img src={{image_url}} class={{keyword}} alt={{title}} >
+          </div>
+        </script>
+        
+        
+      
     </main>
     <footer>
       &copy; 2018 Code Fellows
