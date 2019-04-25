@@ -13,7 +13,19 @@ function Image(pic){
 Image.allImages1 = [];
 Image.allImages2 = [];
 
+const imgRenderer = Handlebars.compile($('#image-template').html());
+
 // FUNCTION DECLARATIONS
+
+//Function for handlebar
+function displayHandle(imageArray){
+  
+  let sectionTag = $('#img-container');
+  $('img').remove();
+  for (let i=0; i<imageArray.length; i++){
+    sectionTag.append(imgRenderer(imageArray[i]));
+  }
+}
 
 //Create image objects from JSON data
 function createImageObject(file, imageArray){
@@ -23,13 +35,15 @@ function createImageObject(file, imageArray){
         if (imageArray.length<20){
           imageArray.push(new Image(picElement));
         }
-      displayImages(imageArray);
+      });
+      // displayImages(imageArray);
+      displayHandle(imageArray);
       fillSelect(imageArray);
       filterImages(imageArray);
-    });
+    
 
   // console.log(Image.allImages);
-});
+  });
 }
 
 //Display images to home page
@@ -67,6 +81,7 @@ function fillSelect(imageArray){
 
 //Function to filter images
 function filterImages(imageArray){
+  let sectionTag = $('#img-container');
   $('select').change(function(){
     // get value for selected keyword
     let selectedKey = $(this).children('option:selected').val();
@@ -75,12 +90,12 @@ function filterImages(imageArray){
       // display all images based from the keyword
       for(let i = 0; i < imageArray.length; i++){
         if(imageArray[i].keyword === selectedKey){
-          $('h2').after(`<img src=${imageArray[i].image_url} alt=${imageArray[i].title}, class: ${imageArray[i].keyword}} />`);
+          sectionTag.append(imgRenderer(imageArray[i]));
      
         }
       }
     } else{
-      displayImages(imageArray);
+      displayHandle(imageArray);
     }
   });
 }
