@@ -13,13 +13,13 @@ function Image(pic){
 Image.allImages1 = [];
 Image.allImages2 = [];
 
-const imgRenderer = Handlebars.compile($('#image-template').html());
+let imgRenderer = Handlebars.compile($('#image-template').html());
 
 // FUNCTION DECLARATIONS
 
 //Function for handlebar
 function displayHandle(imageArray){
-  
+
   let sectionTag = $('#img-container');
   $('img').remove();
   $('h2').remove();
@@ -43,30 +43,25 @@ function createImageObject(file, imageArray){
       filterImages(imageArray);
       addSortListener(imageArray);
 
-  // console.log(Image.allImages);
-  });
+    });
 }
 
 
 //Fill in select options
 function fillSelect(imageArray){
   let options = ['default'];
-
   let selectTag = $('#keyword-select');
-  // let optionItems = getKeyWords();
   selectTag.empty();
- 
+
   selectTag.append(`<option value="default">Filter by Keyword</option>`);
   for(let i = 1; i < imageArray.length; i++){
     if(!options.includes(imageArray[i].keyword)){
       //Add option tag
       selectTag.append(`<option value=${imageArray[i].keyword}>${imageArray[i].keyword}</option>`);
-
       //Add to list of options array
       options.push(imageArray[i].keyword);
     }
   }
-
 }
 
 //Function to filter images
@@ -82,7 +77,7 @@ function filterImages(imageArray){
       for(let i = 0; i < imageArray.length; i++){
         if(imageArray[i].keyword === selectedKey){
           sectionTag.append(imgRenderer(imageArray[i]));
-     
+
         }
       }
     } else{
@@ -114,7 +109,7 @@ function addSortListener(imageArray){
       $('img').remove();
       imageArray.sort((a,b) => compare(a.title, b.title));
       displayHandle(imageArray);
-    } 
+    }
     if (selectedKey === 'horns-sort'){
       imageArray.sort((a,b) => a.horns - b.horns);
       displayHandle(imageArray);
@@ -137,7 +132,6 @@ function compare(a,b){
 }
 // FUNCTION CALLS
 createImageObject('page-1.json', Image.allImages1);
-// createImageObject('page-2.json');
 addListener();
 
 
